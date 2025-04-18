@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 config({ path: '../secrets/.env.secrets' });
 
 import { input } from '@inquirer/prompts';
-import db from './db.js'; // centralized DB instance
+import db from './data/db.js'; // centralized DB instance
 
 // Initialize the database with a products table
 const initDatabase = () => {

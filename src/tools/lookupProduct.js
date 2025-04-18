@@ -1,4 +1,4 @@
-import db from '../db.js';
+import db from '../data/db.js';
 
 export const lookupProduct_definition = {
     type: "function",

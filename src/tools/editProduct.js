@@ -1,4 +1,4 @@
-import db from '../db.js';
+import db from '../data/db.js';
 
 export const editProduct_definition = {
     type: "function",
