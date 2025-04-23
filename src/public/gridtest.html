@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flex‑Based Toggleable Sidebar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            /* spacing & sidebar sizes */
+            --gap: .5rem;
+            --aside-width: 60px;
+            --aside-width-expanded: 240px;
+            --header-height: 2.5rem;
+            --footer-height: 4rem;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, sans-serif;
+            line-height: 1.5;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                "header  header"
+                "aside   main"
+                "footer  footer";
+            grid-template-columns: var(--aside-width) 1fr;
+            grid-template-rows: var(--header-height) 1fr var(--footer-height);
+            gap: var(--gap);
+            padding: var(--gap);
+            height: 100vh;
+            box-sizing: border-box;
+            transition: grid-template-columns 0.3s ease;
+        }
+
+
+
+        /* expanded state */
+        .grid-container.expanded {
+            grid-template-columns: var(--aside-width-expanded) 1fr;
+        }
+
+        /* grid areas */
+        .header {
+            grid-area: header;
+        }
+
+        .aside {
+            grid-area: aside;
+        }
+
+        .main {
+            grid-area: main;
+        }
+
+        .footer {
+            grid-area: footer;
+        }
+
+        /* common styling for each panel */
+        .grid-container>* {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #aaa;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 0.5rem;
+        }
+
+        /* flex layout inside the sidebar */
+        .aside {
+            /* override the centering from above */
+            justify-content: flex-start;
+            /* ← keep children at the top */
+            flex-direction: column;
+            align-items: flex-end;
+            /* still push them to the right edge */
+        }
+
+        /* the toggle button */
+        .aside button {
+            margin-bottom: var(--gap);
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* responsive: stack on smaller screens */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "aside"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-container">
+        <header class="header"></header>
+
+        <aside class="aside">
+            <button id="toggle-btn" aria-label="Toggle sidebar">☰</button>
+        </aside>
+
+        <main class="main"></main>
+        <footer class="footer"></footer>
+    </div>
+
+    <script>
+        const container = document.querySelector('.grid-container');
+        const btn = document.getElementById('toggle-btn');
+
+        btn.addEventListener('click', () => {
+            container.classList.toggle('expanded');
+            btn.textContent = container.classList.contains('expanded') ? '×' : '☰';
+        });
+    </script>
+</body>
+
+</html>

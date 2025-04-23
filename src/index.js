@@ -40,6 +40,8 @@ import { lookupProduct } from './tools/lookupProduct.js';
 import { editProduct } from './tools/editProduct.js';
 import { filterProductsByPrice } from './tools/filterProductsByPrice.js';
 import { getTotalProducts } from './tools/getTotalProducts.js';
+import { listTables } from './tools/listTables.js';
+import { describeTable } from './tools/describeTable.js';
 
 let previous_response_id = null;
 
@@ -59,6 +61,8 @@ const toolHandlers = {
     editProduct: async (args) => await editProduct(args),
     filterProductsByPrice: async (args) => await filterProductsByPrice(args),
     getTotalProducts: async () => await getTotalProducts(),
+    listTables: async () => await listTables(),
+    describeTable: async (args) => await describeTable(args),
 };
 
 while (true) {
